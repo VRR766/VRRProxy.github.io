@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Proxy Client</title>
+</head>
+<body>
+    <h1>Proxy Server</h1>
+    <form id="proxyForm" action="http://localhost:8080/" method="GET">
+        <input type="text" name="url" placeholder="Enter URL" required>
+        <button type="submit">Proxy</button>
+    </form>
+    <div id="response"></div>
+
+    <script>
+        document.getElementById('proxyForm').onsubmit = async (e) => {
+            e.preventDefault();
+            const url = e.target.url.value;
+            const responseDiv = document.getElementById('response');
+            responseDiv.innerHTML = 'Fetching...';
+
+            const response = await fetch(`http://localhost:8080/${url}`);
+            const text = await response.text();
+            responseDiv.innerHTML = text;
+        };
+    </script>
+</body>
+</html>
